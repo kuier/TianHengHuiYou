@@ -1,0 +1,59 @@
+﻿<Fluent:RibbonWindow x:Class="TianHengHuiYou.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
+        xmlns:local ="clr-namespace:TianHengHuiYou"
+        xmlns:ViewModels="clr-namespace:TianHengHuiYou.ViewModels"
+        Title="天恒慧友库存软件管理" >
+    <Window.DataContext>
+        <ViewModels:MainWindowViewModel></ViewModels:MainWindowViewModel>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Fluent:Ribbon AutomaticStateManagement="True" x:Name="ribbon">
+            <Fluent:RibbonTabItem Header="货品管理"
+                                  x:Name="GoodsInfoTabItem">
+                <Fluent:RibbonGroupBox Header="货品信息管理">
+                    <Fluent:Button x:Name="btnRefreshGoodsInfo" Command="{Binding RefreshGoodsInfoCommand}" Header="刷新货品"></Fluent:Button>
+                    <Fluent:Button x:Name="btnAddGoodsInfo" Command="{Binding AddGoodsInfoCommand}" CommandParameter="{Binding EditModel}" Header="添加货品"></Fluent:Button>
+                    <Fluent:Button x:Name="btnEditGoodsInfo" Command="{Binding EditGoodsInfoCommand}" CommandParameter="{Binding EditModel}" Header="修改货品"></Fluent:Button>
+                    <Fluent:Button x:Name="btnDelGoodsInfo" Command="{Binding DelGoodsInfoCommand}" CommandParameter="{Binding EditModel}" Header="删除货品"></Fluent:Button>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="开发板信息管理">
+                    <Fluent:Button Header="列出开发板"></Fluent:Button>
+                    <Fluent:Button Command="{Binding AddDevBoardCommand}" Header="添加开发板"></Fluent:Button>
+                    <Fluent:Button Header="删除开发板"></Fluent:Button>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+            <Fluent:RibbonTabItem Header="库存管理">
+                <Fluent:RibbonGroupBox Header="库存管理">
+                    <Fluent:Button Header="入库"></Fluent:Button>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+        </Fluent:Ribbon>
+        <Grid Grid.Row="1">
+            <DataGrid x:Name="DgGoodsList" AutoGenerateColumns="False" CanUserDeleteRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding GoodsInfoList}" SelectedItem="{Binding EditModel}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="货品编码" Width="100" Binding="{Binding GIEncoder}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="货品名称" Width="100" Binding="{Binding GIName}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="货品规格" Width="100" Binding="{Binding GISize}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="货品库存" Width="100" Binding="{Binding GICount}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="备注" Width="*" Binding="{Binding GIRemarks}" ></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Fluent:StatusBar HorizontalAlignment="Stretch"
+                          VerticalAlignment="Bottom"
+                          Grid.Row="2">
+            <Fluent:StatusBarItem Title="Words Width"
+                                  Value="150"
+                                  HorizontalAlignment="Left">
+                <TextBlock Text="150 px" />
+            </Fluent:StatusBarItem>
+        </Fluent:StatusBar>
+    </Grid>
+</Fluent:RibbonWindow>
