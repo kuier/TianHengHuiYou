@@ -209,7 +209,7 @@ namespace TianHengHuiYou.ViewModels
             {
                 MessageBox.Show("请输入开发板名称");
                 return;
-            }
+            } 
             if (bllDevBoard.GetListBy(u => u.DBName == TbDevName).Count > 0)
             {
                 MessageBox.Show("已经存在这个名称了，请继续编辑");
