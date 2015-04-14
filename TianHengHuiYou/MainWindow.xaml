@@ -4,7 +4,7 @@
         xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
         xmlns:local ="clr-namespace:TianHengHuiYou"
         xmlns:ViewModels="clr-namespace:TianHengHuiYou.ViewModels"
-        Title="天恒慧友库存软件管理" >
+        Title="天恒慧友库存软件管理"  WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <ViewModels:MainWindowViewModel></ViewModels:MainWindowViewModel>
     </Window.DataContext>
@@ -24,25 +24,34 @@
                     <Fluent:Button x:Name="btnDelGoodsInfo" Command="{Binding DelGoodsInfoCommand}" CommandParameter="{Binding EditModel}" Header="删除货品"></Fluent:Button>
                 </Fluent:RibbonGroupBox>
                 <Fluent:RibbonGroupBox Header="开发板信息管理">
-                    <Fluent:Button Header="列出开发板"></Fluent:Button>
+                    <Fluent:Button Header="列出开发板" Command="{Binding ListDevBoardCommand}"></Fluent:Button>
                     <Fluent:Button Command="{Binding AddDevBoardCommand}" Header="添加开发板"></Fluent:Button>
                     <Fluent:Button Header="删除开发板"></Fluent:Button>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox>
+                    <Fluent:Button Header="添加供应商" Command="{Binding AddSupplyFactoryCommand}"></Fluent:Button>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
             <Fluent:RibbonTabItem Header="库存管理">
                 <Fluent:RibbonGroupBox Header="库存管理">
-                    <Fluent:Button Header="入库"></Fluent:Button>
+                    <Fluent:Button Header="入库" Command="{Binding InstoreCommand}"></Fluent:Button>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
         </Fluent:Ribbon>
         <Grid Grid.Row="1">
-            <DataGrid x:Name="DgGoodsList" AutoGenerateColumns="False" CanUserDeleteRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding GoodsInfoList}" SelectedItem="{Binding EditModel}">
+            <DataGrid Visibility="{Binding DgGoodsListVisibility}" x:Name="DgGoodsList" AutoGenerateColumns="False" CanUserDeleteRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding GoodsInfoList}" SelectedItem="{Binding EditModel}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="货品编码" Width="100" Binding="{Binding GIEncoder}"></DataGridTextColumn>
                     <DataGridTextColumn Header="货品名称" Width="100" Binding="{Binding GIName}"></DataGridTextColumn>
                     <DataGridTextColumn Header="货品规格" Width="100" Binding="{Binding GISize}"></DataGridTextColumn>
                     <DataGridTextColumn Header="货品库存" Width="100" Binding="{Binding GICount}"></DataGridTextColumn>
                     <DataGridTextColumn Header="备注" Width="*" Binding="{Binding GIRemarks}" ></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid x:Name="DgDevBoardList" Visibility="{Binding DgDevBoardListVisibility}" ItemsSource="{Binding ListDevBoardItem}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="开发板名称" Width="100" Binding="{Binding devBoard.DBName}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="开发板成本" Width="150" Binding="{Binding Cost}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

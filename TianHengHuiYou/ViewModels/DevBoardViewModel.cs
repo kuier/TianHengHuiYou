@@ -17,8 +17,9 @@ namespace TianHengHuiYou.ViewModels
         }
 
         #region 2、命令属性和依赖属性
-        private BLL.BLLDevBoard bllDevBoard = BLL.BLLDevBoard.GetBllGoodsInfo();
-        private BLL.BLLDevBoardDetail bllDevBoardDetail = BLL.BLLDevBoardDetail.GetBLLDevBoardDetail();
+        private BLL.BLLGoodsInfo bllGoodsInfo = new BLL.BLLGoodsInfo();
+        private BLL.BLLDevBoard bllDevBoard = new BLL.BLLDevBoard();
+        private BLL.BLLDevBoardDetail bllDevBoardDetail = new BLL.BLLDevBoardDetail();
         public DelegateCommand AddDevBoardCommand { get; set; }
         public DelegateCommand SearchCommand { get; set; }
         public DelegateCommand AddDevGoodsCommand { get; set; }
@@ -187,6 +188,17 @@ namespace TianHengHuiYou.ViewModels
                 this.RaisePropertyChanged("CurrentDevBoard");
             }
         }
+        private Visibility goodsListVisibility;
+
+        public Visibility GoodsListVisibility
+        {
+            get { return goodsListVisibility; }
+            set
+            {
+                goodsListVisibility = value;
+                this.RaisePropertyChanged("GoodsListVisibility");
+            }
+        }
 
         #endregion
 
@@ -195,7 +207,7 @@ namespace TianHengHuiYou.ViewModels
             if (string.IsNullOrWhiteSpace(GiEncoderSearch)&&string.IsNullOrWhiteSpace(GiEncoderSearch))
             {
                 MessageBox.Show("都是空的");
-                this.GoodsList = BLL.BLLGoodsInfo.GetBllGoodsInfo().GetListAll();
+                this.GoodsList = bllGoodsInfo.GetListAll();
             }
             else
             {
@@ -212,9 +224,9 @@ namespace TianHengHuiYou.ViewModels
             } 
             if (bllDevBoard.GetListBy(u => u.DBName == TbDevName).Count > 0)
             {
-                MessageBox.Show("已经存在这个名称了，请继续编辑");
+                MessageBox.Show("已经存在这个名称了，请开始编辑");
                 this.CurrentDevName = TbDevName;
-                this.CurrentDevBoard = bllDevBoard.GetListBy(u => u.DBName == TbDevName)[0];
+                this.CurrentDevBoard = new BLL.BLLDevBoard().GetListBy(u => u.DBName == TbDevName)[0];
                 this.DevBoardDetailList = CurrentDevBoard.DevBoardDetail;
                 return;
             }
@@ -233,8 +245,14 @@ namespace TianHengHuiYou.ViewModels
                 MessageBox.Show("请稍后重试");
                 return;
             }
-            DevBoardDetailList.Add(devDeatail);
-            CurrentDevBoard = bllDevBoard.GetListBy(u => u.DBName == TbDevName)[0];
+            //DevBoardDetailList.Add(devDeatail);
+            ShowInfo();
+        }
+
+        private void ShowInfo()
+        {
+            this.CurrentDevBoard = new BLL.BLLDevBoard().GetListBy(u => u.DBName == TbDevName)[0];
+            this.DevBoardDetailList = CurrentDevBoard.DevBoardDetail;
         }
     }
 }

@@ -11,11 +11,12 @@ namespace TianHengHuiYou.ViewModels
     {
         public GoodsInfoDetailViewModel()
         {
-            this.SaveCommand = new DelegateCommand<object>(Save);
+            this.SaveCommand = new DelegateCommand(Save);
         }
-        
+        //private BLL.BLLGoodsInfo bllGoodsInfo = new BLL.BLLGoodsInfo();
+        public BLL.BLLGoodsInfo bllGoodsInfo { get; set; }
         public string cmd { get; set; }
-        public DelegateCommand<object> SaveCommand { get; set; }
+        public DelegateCommand SaveCommand { get; set; }
         private MODEL.GoodsInfo editModel;
 
         public MODEL.GoodsInfo EditModel
@@ -31,14 +32,14 @@ namespace TianHengHuiYou.ViewModels
             }
         }
 
-        private void Save(object str)
+        private void Save()
         {
-            MessageBox.Show(str.ToString());
+            //MessageBox.Show(str.ToString());
             switch (cmd)
             {
                 case "Add":
 
-                    if (BLL.BLLGoodsInfo.GetBllGoodsInfo().Add(EditModel)>0)
+                    if (bllGoodsInfo.Add(EditModel) > 0)
                     {
                         MessageBox.Show("成功了");
                         return;
@@ -49,7 +50,7 @@ namespace TianHengHuiYou.ViewModels
                     }
                     break;
                 case "Edit":
-                    if (BLL.BLLGoodsInfo.GetBllGoodsInfo().Modify(EditModel)>0)
+                    if (bllGoodsInfo.Modify(EditModel) > 0)
                     {
                         MessageBox.Show("保存成功");
                         return;

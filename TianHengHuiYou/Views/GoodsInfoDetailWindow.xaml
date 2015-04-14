@@ -2,10 +2,10 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ViewModels="clr-namespace:TianHengHuiYou.ViewModels"
-        Title="GoodsInfoDetailWindow" Height="500" Width="600">
-    <!--<Window.DataContext>
+        Title="GoodsInfoDetailWindow" Height="500" Width="600" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
         <ViewModels:GoodsInfoDetailViewModel></ViewModels:GoodsInfoDetailViewModel>
-    </Window.DataContext>-->
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" >
             <GroupBox Header="商品详情">
-                <Grid x:Name="GdGoodsInfoDetail" DataContext="{Binding EditModel}">
+                <Grid x:Name="GdGoodsInfoDetail" DataContext="{Binding EditModel,Mode=TwoWay}">
                     <TextBlock HorizontalAlignment="Left" Margin="26,40,0,0" TextWrapping="Wrap" Text="货品编码：" VerticalAlignment="Top"/>
                     <TextBlock HorizontalAlignment="Left" Margin="26,80,0,0" TextWrapping="Wrap" Text="货品规格：" VerticalAlignment="Top"/>
                     <TextBlock HorizontalAlignment="Left" Margin="26,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="入库价：" />
@@ -26,7 +26,7 @@
                     <TextBlock HorizontalAlignment="Left" Margin="282,202,0,0" TextWrapping="Wrap" Text="默认仓库：" VerticalAlignment="Top"/>
                     <TextBlock HorizontalAlignment="Left" Margin="26,240,0,0" TextWrapping="Wrap" Text="库存：" VerticalAlignment="Top"/>
                     <TextBlock HorizontalAlignment="Left" Margin="26,280,0,0" TextWrapping="Wrap" Text="备注：" VerticalAlignment="Top"/>
-                    <TextBox Text="{Binding GIEncoder}" x:Name="tbGIEncoder" HorizontalAlignment="Left" Height="23" Margin="107,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox Text="{Binding GIEncoder,Mode=TwoWay}" x:Name="tbGIEncoder" HorizontalAlignment="Left" Height="23" Margin="107,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <TextBox HorizontalAlignment="Left" Height="23" Margin="107,80,0,0" TextWrapping="Wrap" Text="{Binding GISize}" VerticalAlignment="Top" Width="120"/>
                     <TextBox HorizontalAlignment="Left" Height="23" Margin="107,120,0,0" TextWrapping="Wrap" Text="{Binding GIInPrice}" VerticalAlignment="Top" Width="120"/>
                     <TextBox HorizontalAlignment="Left" Height="23" Margin="107,160,0,0" TextWrapping="Wrap" Text="{Binding GIUplimmit}" VerticalAlignment="Top" Width="120"/>
@@ -43,7 +43,7 @@
             </GroupBox>
         </Grid>
         <Grid Grid.Row="1">
-            <Button Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=GdGoodsInfoDetail, Path=DataContext}" Content="确定" HorizontalAlignment="Left" Margin="427,10,0,0" VerticalAlignment="Top" Width="115" Height="35.837" FontSize="21.333"/>
+            <Button Command="{Binding SaveCommand}" Content="确定" HorizontalAlignment="Left" Margin="427,10,0,0" VerticalAlignment="Top" Width="115" Height="35.837" FontSize="21.333"/>
             <Button Content="取消" HorizontalAlignment="Left" Margin="73,10,0,0" VerticalAlignment="Top" Width="115" Height="35.837" Background="#FFF07966" FontWeight="Bold" FontSize="21.333"/>
         </Grid>
     </Grid>
